@@ -4,8 +4,10 @@ function HTMLActuator() {
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
   this.sharingContainer = document.querySelector(".score-sharing");
+  this.titleContainer   = document.querySelector(".title-container");
 
   this.score = 0;
+  this.mastertitle = "Beginner";
 }
 
 HTMLActuator.prototype.actuate = function (grid, metadata) {
@@ -14,6 +16,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
   window.requestAnimationFrame(function () {
     self.clearContainer(self.tileContainer);
 
+    //grid.empty();
     grid.cells.forEach(function (column) {
       column.forEach(function (cell) {
         if (cell) {
@@ -24,6 +27,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 
     self.updateScore(metadata.score);
     self.updateBestScore(metadata.bestScore);
+    self.updateTitle(self.score);
 
     if (metadata.terminated) {
       if (metadata.over) {
@@ -52,18 +56,18 @@ HTMLActuator.prototype.clearContainer = function (container) {
 
 HTMLActuator.prototype.addTile = function (tile) {
   var valueMap = {
-    2 :    '<Udacity>',
-    4 :    '<Intro CS>',
-    8 :    "skills=['code']",
-    16 :   "skills.add('CSS')",
-    32 :   '</Intro CS>',
-    64 :   '<Job search>',
-    128 :  'getJob(skills)',
-    256 :  '</Job search>',
-    512 :  'if Udacious:',
-    1024 : 'skills.increase()',
-    2048 : 'myJob.advance()',
-    4096 : 'myCareer=myJob'
+    2 :    'Black Pawn',
+    4 :    'White Pawn',
+    8 :    "Black Knight",
+    16 :   "White Knight",
+    32 :   'Black Bishop',
+    64 :   'White Bishop',
+    128 :  'Black Rook',
+    256 :  'White Rook',
+    512 :  'Black Queen',
+    1024 : 'White Queen',
+    2048 : 'The King',
+    4096 : 'Super Grandmaster'
   }
   var self = this;
 
@@ -95,9 +99,9 @@ HTMLActuator.prototype.addTile = function (tile) {
     this.applyClasses(wrapper, classes);
 
     // Render the tiles that merged
-    tile.mergedFrom.forEach(function (merged) {
-      self.addTile(merged);
-    });
+    //tile.mergedFrom.forEach(function (merged) {
+     // self.addTile(merged);
+   // });
   } else {
     classes.push("tile-new");
     this.applyClasses(wrapper, classes);
@@ -140,13 +144,41 @@ HTMLActuator.prototype.updateScore = function (score) {
   }
 };
 
+HTMLActuator.prototype.updateTitle = function (score) {
+  //document.getElementById("test").innerHTML = "Test " + score;
+  //this.clearContainer(this.titleContainer);
+
+  var t = "";
+
+  //alert("shit");
+  if(score < 500) t = "Beginner";
+  else if(score < 3000) t = "Candidate Master";
+  else if(score < 6000) t = "FIDE Master";
+  else if(score < 10000) t = "Intl. Master";
+  else if(score < 50000) t = "Grandmaster";
+  else t = "Super Grandmaster"
+  //document.getElementById("test").innerHTML = "Test " + t;
+  //var curTitle = this.mastertitle;
+  this.mastertitle = t;
+
+  this.titleContainer.textContent = this.mastertitle;
+
+  /*if (curTitle != t) {
+    var addition = document.createElement("div");
+    addition.classList.add("title-addition");
+    addition.textContent = "+" + t;
+
+    this.titleContainer.appendChild(addition);
+  }*/
+};
+
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
   this.bestContainer.textContent = bestScore;
 };
 
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
-  var message = won ? "You win!" : "Game over!";
+  var message = won ? "You saved the king!" : "You got checkmated!";
 
   if (typeof ga !== "undefined") {
     ga("send", "event", "game", "end", type, this.score);
@@ -172,7 +204,7 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("href", "https://twitter.com/share");
   tweet.textContent = "Tweet";
 
-  var text = "" + this.score + " points in Udacity2048! http://ow.ly/vpoFS Code your own game in their new mini course http://ow.ly/vpaLY #2048game"
+  var text = "" + this.score + " points in Chess 2048! http://gmtranthanhtu.github.io/2048/ #2048game"
   tweet.setAttribute("data-text", text);
 
   return tweet;
