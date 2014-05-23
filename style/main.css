@@ -280,7 +280,7 @@ hr {
     .game-message.game-won a.keep-playing-button {
       display: inline-block; }
   .game-message.game-won, .game-message.game-over {
-    display: block; }
+    display: inline-block; }
     .game-message.game-won p, .game-message.game-over p {
       -webkit-animation: slide-up 1.5s ease-in-out 2500ms;
       -moz-animation: slide-up 1.5s ease-in-out 2500ms;

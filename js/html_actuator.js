@@ -204,7 +204,7 @@ HTMLActuator.prototype.scoreTweetButton = function () {
   tweet.setAttribute("href", "https://twitter.com/share");
   tweet.textContent = "Tweet";
 
-  var text = "" + this.score + " points in Chess 2048! http://gmtranthanhtu.github.io/2048/ #2048game"
+  var text = "I've just got " + this.score + " points and the title of " + this.mastertitle +  " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game"
   tweet.setAttribute("data-text", text);
 
   return tweet;
