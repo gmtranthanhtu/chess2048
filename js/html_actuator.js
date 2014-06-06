@@ -205,13 +205,13 @@ HTMLActuator.prototype.scoreTweetButton = function (won) {
   tweet.textContent = "Tweet";
 
   if(!won){
-    var text = "I've just got " + this.score + " points and the title of " + this.mastertitle +  " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048";
+    var text = "I've just got " + this.score + " points and the title of " + this.mastertitle +  " in Chess 2048! Try at http://goo.gl/ZofZGk #2048game #chess2048";
   //var text2 = "I've just saved the King and got " + this.score + " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048"
   //if (metadata.won) tweet.setAttribute("data-text", text2);
     tweet.setAttribute("data-text", text);
   }
   else {
-    var text = "I've just saved the King and got " + this.score + " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048";
+    var text = "I've just saved the King and got " + this.score + " in Chess 2048! Try at http://goo.gl/ZofZGk #2048game #chess2048";
     tweet.setAttribute("data-text", text);
   }
 
