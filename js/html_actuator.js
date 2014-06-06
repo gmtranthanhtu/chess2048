@@ -188,7 +188,7 @@ HTMLActuator.prototype.message = function (won) {
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
 
   this.clearContainer(this.sharingContainer);
-  this.sharingContainer.appendChild(this.scoreTweetButton());
+  this.sharingContainer.appendChild(this.scoreTweetButton(won));
   twttr.widgets.load();
 };
 
@@ -198,14 +198,22 @@ HTMLActuator.prototype.clearMessage = function () {
   this.messageContainer.classList.remove("game-over");
 };
 
-HTMLActuator.prototype.scoreTweetButton = function () {
+HTMLActuator.prototype.scoreTweetButton = function (won) {
   var tweet = document.createElement("a");
   tweet.classList.add("twitter-share-button");
   tweet.setAttribute("href", "https://twitter.com/share");
   tweet.textContent = "Tweet";
 
-  var text = "I've just got " + this.score + " points and the title of " + this.mastertitle +  " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game"
-  tweet.setAttribute("data-text", text);
+  if(!won){
+    var text = "I've just got " + this.score + " points and the title of " + this.mastertitle +  " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048";
+  //var text2 = "I've just saved the King and got " + this.score + " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048"
+  //if (metadata.won) tweet.setAttribute("data-text", text2);
+    tweet.setAttribute("data-text", text);
+  }
+  else {
+    var text = "I've just saved the King and got " + this.score + " in Chess 2048! Try at http://gmtranthanhtu.github.io/chess2048 #2048game #chess2048";
+    tweet.setAttribute("data-text", text);
+  }
 
   return tweet;
 };
